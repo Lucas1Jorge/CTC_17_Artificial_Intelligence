@@ -41,7 +41,7 @@ NN_2 = train(NN_2, input_data, output_data);
 NN_3 = feedforwardnet([190], 'trainrp');
 NN_3 = configure(NN_3, input_data, output_data);
 NN_3 = train(NN_3, input_data, output_data);
-%% Model 4 - Polak-Ribiére Conjugate
+%% Model 4 - Polak-RibiÃ©re Conjugate
 % traincgp:[4-110-2]
 
 NN_4 = feedforwardnet([110], 'traincgp');
@@ -53,5 +53,19 @@ NN_4 = train(NN_4, input_data, output_data);
 NN_5 = feedforwardnet([155], 'trainbr');
 NN_5 = configure(NN_5, input_data, output_data);
 NN_5 = train(NN_5, input_data, output_data);
+%% Model 6 - Variable Learnig Rate Backpropagation
+% traingdx: [25-40-25]
 
-%% Model 6 - 
+NN_6 = feedforwardnet([25, 40, 25]);
+NN_6.trainFcn = 'traingdx';
+NN_6 = train(NN_6, input_data, output_data);
+
+
+% testing the chosen model:
+test_output = NN_6(input_data);
+
+x = 1 : length(test_output);
+plot(x, test_output(1, :), 'm');
+hold on
+plot(x, output_data(1, :), 'b')
+legend('NN output', 'correct output')
